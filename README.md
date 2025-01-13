@@ -1,11 +1,11 @@
-Overview
+##Overview
 
 This project was developed by me as part of the requirements for my Bachelor's degree in Computer Science. 
 It is a fully functional electronic bookstore (called "Paradise Book Store") designed to serve both customers and store managers.
 
 ---
 
-Documentation
+###Documentation
 
 The project includes the following documentation files to help the users and the developers to understand, set up, and operate the system:
 
