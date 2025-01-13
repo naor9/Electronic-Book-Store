@@ -1,0 +1,44 @@
+/*
+This file will have the style how the tables that will be shown in the web app 
+will look like.
+*/
+
+/* Row style: */
+.oddRows {
+    background-color: #f2f2f2; /* Light gray background for odd rows */
+}
+
+.evenRows {
+    background-color: #ffffff; /* White background for even rows */
+}
+
+
+/* Column style: */
+.oddColumns {
+    font-weight: bold;
+}
+
+.evenColumns {
+    font-weight: bold;
+    background-color:#c2dfef 
+}
+
+/* Header style */
+.header {
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Table style */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th, .table td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+

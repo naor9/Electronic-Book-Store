@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page is navigated after the manager searched a customer  user name 
+             in the database. 
+             It shows the info of the searched customer and all the orders that customer 
+             did.-->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="styleForTable.css" library="css"/>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <title>Book Paradise</title>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Orders Info For A Customer:</span></h1>
+        </div>
+        <h:form>
+            <h:dataTable value="#{orderForManagerBean.order}" var="orderLine"
+                         rowClasses="oddRows,evenRows" headerClass="header"
+                         styleClass="table" cellpadding="5" cellspacing="0"
+                         columnClasses="oddColumns,evenColumns,oddColumns,evenColumns,oddColumns,evenColumns">
+                <h:column>
+                    <f:facet name="header">Order Number</f:facet>
+                        #{orderLine.orderNumber}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Buyer User Name</f:facet>
+                        #{orderLine.userName}
+                </h:column>                     
+                <h:column>
+                    <f:facet name="header">Book Ttile</f:facet>
+                        #{orderLine.bookTitle}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                        #{orderLine.quantity}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Total Payment</f:facet>
+                        #{orderLine.totalPayment}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date of The Order</f:facet>
+                        #{orderLine.dateOfTheOrder}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,41 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- Here is the side bar for the welcome page for the use of both customer and manager.-->
+    </ui:remove>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet name="./css/cssLayoutCustomer.css"/>
+
+    <div id="left" class="left_content">
+        <h:form>
+            <h:panelGrid columns="1" border = "1" bgcolor="#FFFFCC">
+                <f:facet name = "header">
+                    <h:outputText value = "Login/register:"/>
+                    <h:panelGroup>
+                        <h:button value="Log In" outcome="#{customerPagesBean.getCUSTOMER_LOG_IN()}"/>
+                        <h:button value="Register" outcome="#{customerPagesBean.getCUSTOMER_REGISTER()}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <h:panelGroup style = "display:block; text-align:center">
+                    <h:outputText value = "Update Your Details:"/>
+                    <h:commandButton id= "udpateCustomerInfo" value="Update your details" action="#{updateCostomerBean.canCustomerUpdateHisInfo(customerBean)}"/>
+                </h:panelGroup>
+                <h:panelGroup style = "display:block; text-align:center">
+                    <h:outputText value = "Log Out: "/>
+                    <h:commandButton id= "logOut" value="Log Out" action="#{customerBean.logOut(orderForCustomerBean,customerOrderLineBean,bookBean,searchBookBean,updateCostomerBean)}"/>
+                </h:panelGroup>
+                <h:panelGrid columns="2" bgcolor="#FFFFCC">
+                    <h:graphicImage name="cart.png" library="images" style="width: 35px; height: 35px;"/>
+                    <h:button value="My Cart" outcome="customer/cart"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </div>
+    <br></br>
+</ui:composition>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page handle a new customer registration. It make sure the customer type 
+             a valid info, hide the typed password and give appropriate
+             notices in case of an unvalid info. 
+             If the eregistration was successful than the customer is navigated into an appropriate page
+             and his new info is saved (in the database and here).-->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+    </h:head>
+    <body>
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/customer/customerSideBarWithHomePage.xhtml" />
+        <ui:include src="/components/customer/titleForCustomer.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">REGISTER</span></h1>
+        </div>
+        <p>Please fill all the info and click register:</p>
+        <h:form>
+            <h:panelGrid columns="3"  border = "1" bgcolor="#40E0D0">
+                <f:facet name = "header">
+                    <h:outputText value = "Register"/>
+                </f:facet>
+                <h:outputLabel for="customerUserName" value="Customer user name:" />
+                <h:inputText id="customerUserName" value="#{customerBean.customerUserName}" required="true"
+                             requiredMessage = "Please enter your name"
+                             validatorMessage = "User name must be between 3 to 16 characters">
+                    <f:validateLength minimum="3" maximum="16" />
+                </h:inputText>
+                <h:message for="customerUserName" style="color:red" />
+                <h:outputLabel for="customerPassword" value="Customer password:" />
+                <h:inputSecret id="customerPassword" value="#{customerBean.customerPassword}" required="true"
+                               requiredMessage = "Please enter your password"
+                               validatorMessage = "Password must be between 6 to 16 characters">
+                    <f:validateLength minimum="6" maximum="16" />
+                </h:inputSecret>
+                <h:message for="customerPassword" style="color:red" />
+                <h:outputLabel for="customerFirstName" value="Customer first name:" />
+                <h:inputText id="customerFirstName" value="#{customerBean.customerFirstName}" required="true"
+                             requiredMessage = "Please enter your fist name"
+                             validatorMessage = "first name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="customerFirstName" style="color:red" />
+                <h:outputLabel for="customerLastName" value="Customer last name:" />
+                <h:inputText id="customerLastName" value="#{customerBean.customerLastName}" required="true"
+                             requiredMessage = "Please enter your last name"
+                             validatorMessage = "Last name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="customerLastName" style="color:red" />
+                <h:outputLabel for="address" value="Customer address:" />
+                <h:inputText id="address" value="#{customerBean.address}" required="true"
+                             requiredMessage = "Please enter your address"
+                             validatorMessage = "Address must be between 2 to 255 characters">
+                    <f:validateLength minimum="2" maximum="255" />
+                </h:inputText>
+                <h:message for="address" style="color:red" />
+                <h:outputLabel for="phoneNumber" value="Customer phone number:" />
+                <h:inputText id="phoneNumber" value="#{customerBean.phoneNumber}" required="true"
+                             requiredMessage = "Please enter your phone Number"
+                             validatorMessage = "Invalid phone number format, use 0X-XXXXXXX or 0XXXXXXXX for landlines, or 05X-XXXXXXX or 05XXXXXXXX for mobile">
+                    <f:validateRegex pattern="^0[2-9]-?\d{7}$|^05[0-9]-?\d{7}$" />.
+                </h:inputText>
+                <h:message for="phoneNumber" style="color:red" />
+                <h:outputLabel for="creditCardNumber" value="Customer credit card number:" />
+                <h:inputSecret id="creditCardNumber" value="#{customerBean.creditCardNumber}" required="true"
+                               requiredMessage = "Please enter your credit Card Number"
+                               validatorMessage = "The credit Card Number must be exactly 16 numbers">
+                    <f:validateRegex pattern="\d{16}" />
+                </h:inputSecret>
+                <h:message for="creditCardNumber" style="color:red" />
+                <h:outputLabel for="creditCardExpirationDate" value="Credit card expiration date:" />
+                <h:inputText id="creditCardExpirationDate" value="#{customerBean.creditCardExpirationDate}" required="true"
+                             requiredMessage = "Please enter your credit card expiration date"
+                             converterMessage="Please enter a date in the format MM/yyyy.">
+                    <f:convertDateTime pattern="MM/yyyy"/>
+                </h:inputText>
+                <h:message for="creditCardExpirationDate" style="color:red" />
+            </h:panelGrid>
+            <br></br>
+            <h:commandButton value="Register" action="#{registerNewCustomerBean.registerNewCustomer(customerBean)}"/>
+        </h:form>
+    </body>
+</html>

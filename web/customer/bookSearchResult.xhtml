@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:remove>
+        <!-- This page shows the customer the search result of the book/s he search 
+             (with a title search, a category search etc.)-->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="styleForTable.css" library="css"/>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+    </h:head>
+
+    <h:body>
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/customer/customerSideBarWithHomePage.xhtml" />
+        <ui:include src="/components/customer/titleForCustomer.xhtml" />
+
+        <div style="text-align: center;" id="content" >
+            <br></br>
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Search Reasults:</span></h1>
+            <h:form>
+                <h:dataTable value="#{searchBookBean.booksSearchResults}" var="book"
+                             rowClasses="oddRows,evenRows" headerClass="header"
+                             styleClass="table" cellpadding="5" cellspacing="0"
+                             columnClasses="oddColumns,evenColumns,oddColumns,evenColumns">
+                    <h:column>
+                        <f:facet name="header">Book Ttile</f:facet>
+                            #{book.bookTitle}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Writer First Name</f:facet>
+                            #{book.writerFirstName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Writer Last Name</f:facet>
+                            #{book.writerLastName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Price</f:facet>
+                            #{book.price}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Categories</f:facet>
+                        <ui:repeat var="category" value="#{book.categories}" varStatus="status">
+                            #{category}
+                            <br></br>
+                        </ui:repeat>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">More Details</f:facet>
+                        <h:commandButton value="View Details" action="#{searchBookBean.goToBookInfo(book)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

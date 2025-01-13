@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page notify the manager the edditing of the book in the database
+             was successful.-->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">The Book #{bookBean.bookTitle} Was Edit Successfully! </span></h1>
+            <h:form>
+                <h:graphicImage name="happyBook2.png" library="images" style="width: 300px; height: 300px;"/>
+            </h:form>
+        </div>
+    </h:body>
+</html>

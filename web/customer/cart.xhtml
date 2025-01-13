@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page shows the customer his cart. 
+             It lets the customer delete a line (a book) from his order or pay for his order.
+             It won't let the customer to pay for his order if the quantity the customer wants 
+             to order is more than the quantity in the store, if the credit card of the customer
+             is expired or if the customer is not log in.
+             is not engouth -->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="styleForTable.css" library="css"/>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/customer/customerSideBarWithHomePage.xhtml" />
+        <ui:include src="/components/customer/titleForCustomer.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <h1> <span class="secondTitleText" style="color:blue;font-weight:bold">My Cart</span></h1>
+            <h:form>
+                <h:dataTable value="#{orderForCustomerBean.order}" var="orderLine"
+                             rowClasses="oddRows,evenRows" headerClass="header"
+                             styleClass="table" cellpadding="5" cellspacing="0"
+                             columnClasses="oddColumns,evenColumns,oddColumns,evenColumns">
+                    <h:column>
+                        <f:facet name="header">Book Ttile</f:facet>
+                            #{orderLine.bookTitle}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                            #{orderLine.quantity}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Price</f:facet>
+                            #{orderLine.price}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Total</f:facet>
+                            #{orderLine.totalPayment}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Delete Book Order</f:facet>
+                        <h:commandButton value="DELETE" action="#{orderForCustomerBean.delteOrderLineFromOrder(orderLine)}"/>
+                    </h:column>
+                </h:dataTable>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Total payment: #{orderForCustomerBean.totalOrderPayment}" />
+                    <h:commandButton value="Check Out" action="#{orderForCustomerBean.pay(customerBean)}"/>
+                    <h:graphicImage name="bookPointRight.png" library="images" style="width: 75px; height: 75px;"/>
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </h:body>
+</html>

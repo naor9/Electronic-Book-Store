@@ -1,0 +1,6 @@
+/*
+This file will have the style for the second title of a page(for example "Log In" in "logIn page)
+*/
+.secondTitleText {
+    font-size: 30px;
+}

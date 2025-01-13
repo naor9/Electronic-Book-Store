@@ -1,0 +1,12 @@
+/*The css style for the position of the title.*/
+.container {
+  position: relative; /* This is the container that will hold the centered div */
+}
+
+.centered {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Translate the div by half its width and height */
+  margin-bottom: 600px;
+}

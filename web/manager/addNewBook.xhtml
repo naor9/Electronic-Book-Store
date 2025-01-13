@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page handle the adding of a new book into the database by the manager.-->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Add New Book</span></h1>
+        </div>
+        <p>Please fill all the info and click 'Add new book':</p>
+        <h:form>
+            <h:panelGrid columns="1">
+                <h:panelGrid columns="3" border="1" bgcolor="#FFE4E1">
+                    <h:outputLabel for="bookTitle" value="Book Title:" />
+                    <h:inputText id="bookTitle" value="#{bookBean.bookTitle}" required="true"
+                                 requiredMessage = "Please enter the title of the book"
+                                 validatorMessage = "The book title must be between 2 to 50 characters">
+                        <f:validateLength minimum="2" maximum="50" />
+                    </h:inputText>
+                    <h:message for="bookTitle" style="color:red" />
+                    <h:outputLabel for="publishYear" value="Publish year:" />
+                    <h:inputText id="publishYear" value="#{bookBean.publishYear}" required="true"
+                                 requiredMessage = "Please enter the publish year of the book"
+                                 validatorMessage = "publish year must be a year between 0 to #{currentDateBean.currentYear} AC"
+                                 converterMessage="the publish year must be an integer">
+                        <f:validateLongRange minimum="0" maximum="#{currentDateBean.currentYear}" />
+                    </h:inputText>
+                    <h:message for="publishYear" style="color:red" />
+                    <h:outputLabel for="writerFirstName" value="Writer First Name:" />
+                    <h:inputText id="writerFirstName" value="#{bookBean.writerFirstName}" required="true"
+                                 requiredMessage = "Please enter the First Name of the writer"
+                                 validatorMessage = "Writer first name must be between 2 to 50 characters">
+                        <f:validateLength minimum="2" maximum="50" />
+                    </h:inputText>
+                    <h:message for="writerFirstName" style="color:red" />
+                    <h:outputLabel for="writerLastName" value="Writer Last Name:" />
+                    <h:inputText id="writerLastName" value="#{bookBean.writerLastName}" required="true"
+                                 requiredMessage = "Please enter the Last Name of the writer"
+                                 validatorMessage = "Writer last name must be between 2 to 50 characters">
+                        <f:validateLength minimum="2" maximum="50" />
+                    </h:inputText>
+                    <h:message for="writerLastName" style="color:red" />
+                </h:panelGrid>
+                <h:outputLabel for="addBookCategories" value="Please choose the book category/ies:" />
+                <h:panelGrid columns="11" border="1" bgcolor="#FFE4E1">
+                    <h:selectManyCheckbox id="addBookCategories" required="true"
+                                          requiredMessage="Please choose at least 1 category"
+                                          value="#{bookBean.categories}">
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(0)}" itemLabel="Fiction"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(1)}" itemLabel="Science Fiction"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(2)}" itemLabel="Fantasy"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(3)}" itemLabel="Mystery"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(4)}" itemLabel="Thriller"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(5)}" itemLabel="Romance"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(6)}" itemLabel="Biography"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(7)}" itemLabel="History"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(8)}" itemLabel="Classic Literature"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(9)}" itemLabel="Children's Fiction"/>
+                    </h:selectManyCheckbox>
+                </h:panelGrid>
+                <h:panelGrid columns="3" border="1" bgcolor="#FFE4E1">
+                    <h:outputLabel for="pageNumber" value="Page number:" />
+                    <h:inputText id="pageNumber" value="#{bookBean.pageNumber}" required="true"
+                                 requiredMessage = "Please enter the page number"
+                                 converterMessage="the page number must be an integer"
+                                 validatorMessage = "The page number must be a  non-negative number from 1 to #{constantBean.getMAX_PAGE_NUMBER()}">
+                        <f:validateLongRange minimum="0" maximum="#{constantBean.getMAX_PAGE_NUMBER()}" />
+                    </h:inputText>
+                    <h:message for="pageNumber" style="color:red" />
+                    <h:outputLabel for="bookImageUrl" value="Book Image URL:" />
+                    <h:inputText id="bookImageUrl" value="#{bookBean.bookImageUrl}" required="true"
+                                 requiredMessage = "Please enter the book image URL"
+                                 validatorMessage = "The book image URL must be between 1 to 255 characters">
+                        <f:validateLength minimum="1" maximum="255" />
+                    </h:inputText>
+                    <h:message for="bookImageUrl" style="color:red" />
+                    <h:outputLabel for="price" value="Price:" />
+                    <h:inputText id="price" value="#{bookBean.price}" required="true"
+                                 requiredMessage = "Please enter the price of the book"
+                                 converterMessage="Please enter double type only."
+                                 validatorMessage = "The page number must be a  non-negative number from 0 (free)">
+                        <f:validateLongRange minimum="0"/>
+                    </h:inputText>
+                    <h:message for="price" style="color:red" />
+                    <h:outputLabel for="quantityInTheStore" value="Quantity in the store:" />
+                    <h:inputText id="quantityInTheStore" value="#{bookBean.quantityInTheStore}" required="true"
+                                 requiredMessage = "Please enter the quantity in the store of the book"
+                                 converterMessage="Please enter int type only."
+                                 validatorMessage = "The quantity in the store must be a  non-negative number">
+                        <f:validateLongRange minimum="0"/>
+                    </h:inputText>
+                    <h:message for="quantityInTheStore" style="color:red" />
+                </h:panelGrid>
+                <br></br>
+            </h:panelGrid>
+            <h:commandButton value="Add new book" action="#{addNewBookBean.addNewBookToTheDatabase(bookBean)}"/>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,23 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- Here is the title for all the pages sites for the manager use.-->
+    </ui:remove>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet name="./css/cssLayoutManager.css"/>
+    <h:outputStylesheet name="panelGridCenter.css" library="css"/>
+    <h:outputStylesheet name="titleText.css" library="css"/>      
+
+    <div style="text-align: center;" id="content" class="center_content">
+        <h:panelGrid border = "1" columns="1" class="center-panel" styleClass="panelGridCenter" bgcolor="purple">
+            <h1> <span class="title_text" style="color:blue;font-weight:bold">Paradise Book Store </span></h1>
+            <h1> <span class="title_text" style="color:darkseagreen;font-weight:bold">HELLO #{managerBean.managerUserName}! </span></h1>
+        </h:panelGrid>
+    </div>
+</ui:composition>

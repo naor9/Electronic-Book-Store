@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page is navigated after the manager search a writer to edit. 
+             It let the manager change the writer info in the database, and gives
+             an appropricate response if there is an error/problem in the editing, 
+             or sends the manager into an appropriate page with a notice if the editing
+             was successful.-->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <title>Book Paradise</title>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Edit Writer</span></h1>
+        </div>
+
+        <ui:param name="writerBeforeTheEdit" value="#{searchWriterBean.writer}" />
+        <ui:param name="writerLastNameBeforeTheEdit" value="#{searchWriterBean.writer.writerLastName}" />
+        <br></br>
+        <p>Please fill all the info and click 'Edit Writer':</p>
+        <h:form>
+            <h:panelGrid columns="3" border="1" bgcolor="#FFE4E1">
+                <p>The current writer first name: <span style="color:red;font-weight:bold">#{writerBeforeTheEdit.writerFirstName}</span>, the new writer first name: </p>
+                <h:inputText id="writerFirstName" value="#{writerBean.writerFirstName}" required="true"
+                             requiredMessage = "Please enter the First Name of the writer"
+                             validatorMessage = "Writer first name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerFirstName" style="color:red" />
+                <p>The current writer last name: <span style="color:red;font-weight:bold">#{writerLastNameBeforeTheEdit}</span>, the new writer last name: </p>
+                <h:inputText id="writerLastName" value="#{writerBean.writerLastName}" required="true"
+                             requiredMessage = "Please enter the Last Name of the writer"
+                             validatorMessage = "Writer last name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerLastName" style="color:red" />
+            </h:panelGrid>
+            <h:panelGrid columns="2" border="1" bgcolor="#FFE4E1">
+                <h:commandButton value="Edit Writer" action="#{writerBean.editWriterInTheDatabase(searchWriterBean.writer)}"/>
+                <h:button value="Search another writer to edit" outcome="#{managerPagesBean.getSEARCH_WRITER_FOR_EDIT_WRITER()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page handle the editing of a book by the manager.
+             It navigated from the search of a book to edit (by the manager).
+             It lets the manager edit the book info in the database, and notify
+             the manager if the editing data is legit.-->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <title>Book Paradise</title>
+    </h:head>
+    <h:body>
+        <ui:param name="book" value="#{searchBookBean.booksSearchResults.get(0)}" />
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Edit Book</span></h1>
+        </div>
+
+        <br></br>
+        <p>Please fill all the info and click 'Edit book':</p>
+        <h:form>
+            <h:panelGrid columns="3" border="1" bgcolor="#FFE4E1">
+                <p>The current book title: <span style="color:red;font-weight:bold">#{book.bookTitle}</span>, the new book title: </p>
+                <h:inputText id="bookTitle" value="#{bookBean.bookTitle}"
+                             required="true"
+                             requiredMessage = "Please enter the title of the book"
+                             validatorMessage = "The book title must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="bookTitle" style="color:red" />
+                <p>The current publish year: <span style="color:red;font-weight:bold">#{book.publishYear}</span>, the new publish year: </p>
+                <h:inputText id="publishYear" value="#{bookBean.publishYear}" required="true"
+                             requiredMessage = "Please enter the publish year of the book"
+                             validatorMessage = "publish year must be a year between 0 to #{currentDateBean.currentYear} AC"
+                             converterMessage="the publish year must be an integer">
+                    <f:validateLongRange minimum="0" maximum="#{currentDateBean.currentYear}" />
+                </h:inputText>
+                <h:message for="publishYear" style="color:red" />
+                <p>The current writer first name: <span style="color:red;font-weight:bold">#{book.writerFirstName}</span>, the new writer first name: </p>
+                <h:inputText id="writerFirstName" value="#{bookBean.writerFirstName}" required="true"
+                             requiredMessage = "Please enter the First Name of the writer"
+                             validatorMessage = "Writer first name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerFirstName" style="color:red" />
+                <p>The current writer last name: <span style="color:red;font-weight:bold">#{book.writerLastName}</span>, the new writer last name: </p>
+                <h:inputText id="writerLastName" value="#{bookBean.writerLastName}" required="true"
+                             requiredMessage = "Please enter the Last Name of the writer"
+                             validatorMessage = "Writer last name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerLastName" style="color:red" />
+                <p>The current page number: <span style="color:red;font-weight:bold">#{book.pageNumber}</span>, the new page number: </p>
+                <h:inputText id="pageNumber" value="#{bookBean.pageNumber}" required="true"
+                             requiredMessage = "Please enter the page number"
+                             converterMessage="the page number must be an integer"
+                             validatorMessage = "The page number must be a  non-negative number from 1 to #{constantBean.getMAX_PAGE_NUMBER()}">
+                    <f:validateLongRange minimum="0" maximum="#{constantBean.getMAX_PAGE_NUMBER()}" />
+                </h:inputText>
+                <h:message for="pageNumber" style="color:red" />
+                <p>The current book image URL: <span style="color:red;font-weight:bold">#{book.bookImageUrl}</span>, the new book image URL: </p>
+                <h:inputText id="bookImageUrl" value="#{bookBean.bookImageUrl}" required="true"
+                             requiredMessage = "Please enter the book image URL"
+                             validatorMessage = "The book image URL must be between 1 to 255 characters">
+                    <f:validateLength minimum="1" maximum="255" />
+                </h:inputText>
+                <h:message for="bookImageUrl" style="color:red" />
+                <p>The current book price: <span style="color:red;font-weight:bold">#{book.price}</span>, the new book price: </p>
+                <h:inputText id="price" value="#{bookBean.price}" required="true"
+                             requiredMessage = "Please enter the price of the book"
+                             converterMessage="Please enter double type only."
+                             validatorMessage = "The page number must be a  non-negative number from 0 (free)">
+                    <f:validateLongRange minimum="0"/>
+                </h:inputText>
+                <h:message for="price" style="color:red" />
+                <p>The current book quantity in the store: <span style="color:red;font-weight:bold">#{book.quantityInTheStore}</span>, the new book quantity in the store: </p>
+                <h:inputText id="quantityInTheStore" value="#{bookBean.quantityInTheStore}" required="true"
+                             requiredMessage = "Please enter the quantity in the store of the book"
+                             converterMessage="Please enter int type only."
+                             validatorMessage = "The quantity in the store must be a  non-negative number">
+                    <f:validateLongRange minimum="0"/>
+                </h:inputText>
+                <h:message for="quantityInTheStore" style="color:red" />
+            </h:panelGrid>
+            <h:panelGrid columns="11" border="1" bgcolor="#FFE4E1">
+                <h:outputLabel for="addBookCategories" value="Please choose the book category/ies:" />
+                <h:selectManyCheckbox id="addBookCategories" required="true"
+                                      requiredMessage="Please choose at least 1 category"
+                                      value="#{bookBean.categories}">
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(0)}" itemLabel="Fiction"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(1)}" itemLabel="Science Fiction"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(2)}" itemLabel="Fantasy"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(3)}" itemLabel="Mystery"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(4)}" itemLabel="Thriller"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(5)}" itemLabel="Romance"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(6)}" itemLabel="Biography"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(7)}" itemLabel="History"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(8)}" itemLabel="Classic Literature"/>
+                    <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(9)}" itemLabel="Children's Fiction"/>
+                </h:selectManyCheckbox>
+            </h:panelGrid>
+            <h:panelGrid columns="2" border="1" bgcolor="#FFE4E1">
+                <h:commandButton value="Edit book" action="#{editBookBean.editBook(book, bookBean)}"/>
+                <h:button value="Search other book to edit" outcome="#{managerPagesBean.getSEARCH_BOOK_FOR_EDIT_BOOK()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

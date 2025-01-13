@@ -1,0 +1,51 @@
+/*
+This file will have the style for the customer model.
+*/
+#top {
+    position: relative;
+    background-color: #036fab;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+#left_without_width {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    float: center;
+    background-color: #f5daaf;
+    padding: 5px;
+}
+
+.left_content {
+    background-color: #B3FFB3;
+    padding: 5px;
+}
+
+.right_content {
+    background-color: #B3FFB3;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+body {
+    background-color: #f5daaf;
+}

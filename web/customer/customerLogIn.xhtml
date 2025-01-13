@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page handle the customer log in. It make sure the customer type 
+             a valid user name and password, hide the typed password and give appropriate
+             notice in case of an unvalid user name and/or password. 
+             If the log in was successful the customer is navigated into an appropriate page
+             and his info is saved.-->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <title>Book Paradise</title>
+    </h:head>
+    <body>
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/customer/customerSideBarWithHomePage.xhtml" />
+        <ui:include src="/components/customer/titleForCustomer.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">LOG IN</span></h1>
+        </div>
+        <p>Please fill all the info and click log in:</p>
+        <h:form>
+            <h:panelGrid columns="3"  border = "1" bgcolor="#40E0D0">
+                <f:facet name = "header">
+                    <h:outputText value = "Log In"/>
+                </f:facet>
+                <h:outputLabel for="customerUserName" value="Customer user name:" />
+                <h:inputText id="customerUserName" value="#{logInBean.userName}" required="true"
+                             requiredMessage = "Please enter your name"
+                             validatorMessage = "User name must be between 3 to 16 characters">
+                    <f:validateLength minimum="3" maximum="16" />
+                </h:inputText>
+                <h:message for="customerUserName" style="color:red" />
+                <h:outputLabel for="customerPassword" value="Customer password:" />
+                <h:inputSecret id="customerPassword" value="#{logInBean.password}" required="true"
+                               requiredMessage = "Please enter your password"
+                               validatorMessage = "Password must be between 6 to 16 characters">
+                    <f:validateLength minimum="6" maximum="16" />
+                </h:inputSecret>
+                <h:message for="customerPassword" style="color:red" />
+            </h:panelGrid>
+            <br></br>
+            <h:commandButton value="log in" action="#{logInBean.logIn(customerBean, managerBean)}"/>
+        </h:form>
+    </body>
+</html>

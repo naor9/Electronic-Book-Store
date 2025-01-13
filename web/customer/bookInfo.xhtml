@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:remove>
+        <!-- This page shows the customer the information about the book he chose previusly, 
+             and let the customer to add a legit amount of this book into his cart.
+             This page will make sure the customer didn't order more than the quantity 
+             in the storage of the store.-->
+    </ui:remove>
+
+
+    <h:head>
+        <ui:param name="book" value="#{searchBookBean.booksSearchResults.get(searchBookBean.indexForBooksSearchResults)}" />
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>      
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/customer/customerSideBarWithHomePage.xhtml" />
+        <ui:include src="/components/customer/titleForCustomer.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <h1> <span class="secondTitleText" style="color:blue;font-weight:bold">Book Title: #{book.bookTitle}</span></h1>
+
+            <h:form>
+                <h:panelGrid columns="2" border = "1" bgcolor="#40E0D0" class="center-panel" styleClass="panelGridCenter">
+                    <h:graphicImage value="#{book.bookImageUrl}"
+                                    alt="Book Image"  style="width: 300px; height: 400px;"/>
+                    <h:panelGrid columns="1" border = "1" >
+                        <h:outputLabel for="writerFirstName" 
+                                       value="Writer First Name: #{book.writerFirstName}"/>
+                        <h:outputLabel for="writerLastName" 
+                                       value="Writer Last Name: #{book.writerLastName}"/>
+                        <h:outputLabel for="pageNumber" 
+                                       value="Page Number: #{book.pageNumber}"/>
+                        <h:panelGroup style = "display:block; text-align:center">
+                            <h:outputLabel for="categories" 
+                                           value="Book Categories: "/>
+                            <br></br>
+                            <ui:repeat var="category" value="#{book.categories}" varStatus="status">
+                                #{category}
+                                <br></br>
+                            </ui:repeat>
+                        </h:panelGroup>
+                        <h:outputLabel for="price" 
+                                       value="Price: #{book.price}"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <br></br>
+                <br></br>
+                <h:panelGrid columns="4" border = "1" class="center-panel" styleClass="panelGridCenter">
+                    <h:outputLabel for="quantity" value="Quantity: " />
+                    <h:inputText id ="quantity" value="#{orderForCustomerBean.quantity}"
+                                 required="true" requiredMessage = "Please choose the desire quantity for the book"
+                                 converterMessage="Please enter integer only."
+                                 validatorMessage = "The book quantity must be a number between 1 to #{book.quantityInTheStore} (quantity in the stock).">
+                        <f:validateLongRange minimum="1" maximum="#{book.quantityInTheStore}" />
+                    </h:inputText>
+                    <h:commandButton value="Add to cart"
+                                     action="#{orderForCustomerBean.updateTheNewOrderLineAndAddItToOrder(book.bookTitle,book.price,book.quantityInTheStore)}"/>
+                    <h:message for="quantity" style="color:red" />
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </h:body>
+</html>

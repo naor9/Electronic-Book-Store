@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page is used by the manager when he wants to edit a writer in the database.
+             It lets the manager type the writer info, that the manager wants to edit, 
+             and gives appropriate notices if there is a problem with the info,
+             or navigate the manager into the edit writer page if the search was 
+             successful.-->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <title>Book Paradise</title>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/managerSideBar.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Edit Writer</span></h1>
+        </div>
+        <p>Please search the writer to edit:</p>
+        <h:form>
+            <h:panelGrid columns="3"  border="1" bgcolor="#FFE4E1">
+                <h:outputLabel for="searchWriterFirstName" value="Writer First Name: " />
+                <h:inputText id="writerFirstName" value="#{writerAsRequestScopedBean.writerBean.writerFirstName}" required="true"
+                             requiredMessage = "Please enter the First Name of the writer"
+                             validatorMessage = "Writer first name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerFirstName" style="color:red" />
+                <h:outputLabel for="searchWriterLastName" value="Writer Last Name: " />
+                <h:inputText id="writerLastName" value="#{writerAsRequestScopedBean.writerBean.writerLastName}" required="true"
+                             requiredMessage = "Please enter the Last Name of the writer"
+                             validatorMessage = "Writer last name must be between 2 to 50 characters">
+                    <f:validateLength minimum="2" maximum="50" />
+                </h:inputText>
+                <h:message for="writerLastName" style="color:red" />
+            </h:panelGrid>
+            <h:commandButton value="Search" action="#{searchWriterBean.searchWriterInTheDatabase(writerAsRequestScopedBean.writerBean)}"/>
+        </h:form>
+    </h:body>
+</html>

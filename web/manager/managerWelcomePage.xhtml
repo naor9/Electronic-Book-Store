@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:remove>
+        <!-- This page is the home page for the manager, after he loged in and until
+             he will log out. 
+             It lets the manager to choose waht he would like to do, like add a new book/writer,
+             see a customer info etc.-->
+    </ui:remove>
+
+
+    <h:head>
+        <title>Book Paradise</title>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>
+        <h:outputStylesheet name="panelGridCenter.css" library="css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/components/logoBookParadise.xhtml" />
+        <ui:include src="/components/manager/titleForManager.xhtml" />
+
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <h1><span class="secondTitleText" style="color:#8B6B4F;font-weight:bold">Home Page</span></h1>
+        </div>
+        <br></br>
+        <br></br>
+        <div style="text-align: center;">
+            <p> <span class="secondTitleText" style="color:darkorchid;font-weight:bold">PLEASE CHOOSE 1 OPTION: </span></p>
+        </div>
+        <h:form>
+            <h:panelGrid columns="1" border = "1" class="center-panel" styleClass="panelGridCenter" bgcolor="#FFE4E1">
+                <h:button value="Add New Book" outcome="#{managerPagesBean.getADD_NEW_BOOK()}"/>
+                <h:button value="Edit Book" outcome="#{managerPagesBean.getSEARCH_BOOK_FOR_EDIT_BOOK()}"/>
+                <h:button value="Add New Writer" outcome="#{managerPagesBean.getADD_NEW_WRITER()}"/>
+                <h:button value="Edit Existing Writer" outcome="#{managerPagesBean.getSEARCH_WRITER_FOR_EDIT_WRITER()}"/>
+                <h:button value="Search User Name" outcome="#{managerPagesBean.getSEARCH_CUSTOMER_FOR_CUSTOMER_ORDERS()}"/>
+                <h:commandButton value="See All The Orders" action="#{orderForManagerBean.setOrderToBeAllOrdersLines}"/>
+                <h:button value="Change Your Password" outcome="#{managerPagesBean.getEDIT_PASSWORD_FOR_MANAGER()}"/>
+                <h:button value="Add New Manager" outcome="#{managerPagesBean.getADD_NEW_MANAGER()}"/>
+                <h:commandButton id= "logOut" value="Log Out" action="#{managerBean.logOut(orderForManagerBean,managerOrderLineBean,bookBean,searchBookBean, customerBean, writerBean, searchWriterBean)}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

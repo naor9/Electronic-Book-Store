@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:remove>
+        <!-- This page is the home page of the site -->
+    </ui:remove>
+
+
+    <h:head>
+        <h:outputStylesheet name="panelGridCenter.css" library="css"/>
+        <h:outputStylesheet name="secondTitleText.css" library="css"/>   
+        <title>Book Paradise</title>
+    </h:head>
+
+    <h:body>
+        <ui:include src="components/logoBookParadise.xhtml" />
+        <ui:include src="components/HomePageSideBarForCustomerAndManager.xhtml" />
+        <ui:include src="components/customer/titleForCustomer.xhtml" />
+        <div style="text-align: center;" id="content" class="center_content">
+            <br></br>
+            <br></br>
+            <h:form>
+                <h:panelGrid columns="6"  border = "1" class="center-panel" styleClass="panelGridCenter">
+                    <h:graphicImage name="search.png" library="images" style="width: 25px; height: 25px;"/>
+                    <h:outputLabel class="secondTitleText" for="searchABookByTitle" value="Serch a book by the title: " />
+                    <h:inputText id ="searchABookByTitle" value="#{searchABookByTitleBean.bookTitleToSearch}"
+                                 required="true" requiredMessage = "Please enter a book title"
+                                 validatorMessage = "Book Title must be between 1 to 50 character">
+                        <f:validateLength minimum="1" maximum="50" />
+                    </h:inputText>
+                    <h:commandButton value="Search" action="#{searchABookByTitleBean.searchABookByTitleForCustomer(searchBookBean)}"/>
+                    <h:message for="searchABookByTitle" style="color:red" />
+                </h:panelGrid>
+            </h:form>
+            <br></br>
+            <br></br>
+            <h:form>
+                <div style="text-align: center;">
+                    <p> <span class="secondTitleText" style="color:#995B74;font-weight:bold">SEARCH A BOOK BY CATEGORY/IES: </span></p>
+                </div>
+                <h:panelGrid columns="10" border = "1" bgcolor="#5b9998" styleClass="panelGridCenter">
+                    <h:selectManyCheckbox id="searchABookByCategory" required="true"
+                                          requiredMessage="Please choose at least 1 category, then press Search"
+                                          value="#{searchABookByCategoryBean.booksCategoriesToSearch}">
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(0)}" itemLabel="Fiction"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(1)}" itemLabel="Science Fiction"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(2)}" itemLabel="Fantasy"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(3)}" itemLabel="Mystery"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(4)}" itemLabel="Thriller"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(5)}" itemLabel="Romance"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(6)}" itemLabel="Biography"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(7)}" itemLabel="History"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(8)}" itemLabel="Classic Literature"/>
+                        <f:selectItem itemValue="#{categoryBean.getCategoryByIndex(9)}" itemLabel="Children's Fiction"/>
+                    </h:selectManyCheckbox>
+                    <h:commandButton value="Search" action="#{searchABookByCategoryBean.searchABookByCategory(searchBookBean)}"/>
+                    <h:message for="searchABookByCategory" style="color:red" />
+                </h:panelGrid>
+            </h:form>
+            <br></br>
+            <br></br>
+            <div style="text-align: center;">
+                <p> <span class="secondTitleText" style="color:#995B74;font-weight:bold">OUR BOOKS: </span></p>
+            </div>
+            <h:form>
+                #{searchBookBean.setBooksSearchResultsToAllTheBooks()}
+                <ui:repeat var="book" value="#{searchBookBean.booksSearchResults}" varStatus="status">
+                    <span style="display:inline-block; margin-right:10px;">
+                        <h:panelGrid columns="1">
+                            <h:graphicImage value="#{book.bookImageUrl}"
+                                            alt="Book Image"  style="width: 150px; height: 200px;"/>
+                            #{book.bookTitle}
+                            <h:commandButton value="View Details" action="#{searchBookBean.goToBookInfo(book)}"/>
+                        </h:panelGrid>
+                    </span>
+                </ui:repeat>
+            </h:form>
+        </div>
+    </h:body>
+</html>
